@@ -54,6 +54,12 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
       return;
     }
 
+    // Check if all required fields are filled
+    if (!name || !email || !address || !mobile) {
+      alert('Please fill out all fields before proceeding.');
+      return;
+    }
+
     if (paymentMethod !== 'paypal') {
       setIsSubmitting(true);
       await completeCheckout({ id: 'Cash Payment', payer: { name: { given_name: 'Cash Payment' } } }, false);
@@ -87,7 +93,7 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
       try {
         const response = await sendEmail(email, message, orderNumber);
         if (response.ok) {
-          alert(`Order placed Email sent. Your order number is ${orderNumber}.`);
+          alert(`Order placed. Email sent. Your order number is ${orderNumber}.`);
           onOrderComplete(); // Clear cart and navigate back
           navigate('/');
         } else {
