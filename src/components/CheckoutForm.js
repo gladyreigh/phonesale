@@ -13,7 +13,7 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const PAYPAL_CLIENT_ID = 'Aaj-l2MMB53_s0tbvdw11G1Cffupc-HBwyjlw2VbY8F6o9TNvWzwSMlwV4BOVxs-RWm2yYTwPzOszbMR';
+  const PAYPAL_CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
   useEffect(() => {
     if (paymentMethod === 'paypal' && !paypalLoaded) {
@@ -111,7 +111,7 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
 
   const sendEmail = async (to, message, orderNumber) => {
     const smtpEndpoint = 'https://api.smtp2go.com/v3/email/send';
-    const apiKey = 'api-AF4BE98C43FF422EAC600E6C9CF3C5C8';
+    const apiKey = process.env.REACT_APP_SMTP_API_KEY;
     const fromName = 'PhoneSale';
     const fromEmail = 'support@phonesale.org';
 
