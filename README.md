@@ -1,4 +1,4 @@
-```markdown
+```
 # PhoneSale
 
 Welcome to the PhoneSale e-commerce platform! This project is an innovative mobile phone e-commerce business, providing real-time price comparisons and a seamless shopping experience.
