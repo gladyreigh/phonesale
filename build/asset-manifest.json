@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f6f7f236.css",
+    "main.js": "/static/js/main.7da15a9d.js",
+    "static/media/phonesalelogo.png": "/static/media/phonesalelogo.dc7a41317293ff6b96b8.png",
+    "index.html": "/index.html",
+    "main.f6f7f236.css.map": "/static/css/main.f6f7f236.css.map",
+    "main.7da15a9d.js.map": "/static/js/main.7da15a9d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f6f7f236.css",
+    "static/js/main.7da15a9d.js"
+  ]
+}

@@ -1,0 +1,268 @@
+/* CheckoutForm.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #45a049;
+  --accent-color: #ff4757;
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.checkoutContainer {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 40px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--background-color) 100%);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px var(--shadow-color);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.formWrapper {
+  flex: 1;
+  padding: 40px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+.formWrapper:hover {
+  transform: translateY(-5px);
+}
+
+.title {
+  font-size: 2.5em;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-color);
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.formGroup label {
+  font-size: 1em;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.formGroup input:focus + label,
+.formGroup select:focus + label {
+  color: var(--primary-color);
+}
+
+.select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234CAF50%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 12px auto;
+}
+
+.submitButton {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.submitButton:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.submitButton:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.paypalContainer {
+  margin-top: 20px;
+}
+
+.orderSummary {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px var(--shadow-color);
+  margin-top: 40px;
+}
+
+.orderSummary h3 {
+  font-size: 1.8em;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  text-align: center;
+  position: relative;
+}
+
+.orderSummary h3::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-color);
+  margin: 10px auto 0;
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 1em;
+  color: var(--text-color);
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.totalAmount {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid var(--primary-color);
+  font-weight: bold;
+  font-size: 1.2em;
+  color: var(--primary-color);
+}
+
+.backButton {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-top: 30px;
+  background-color: #f0f0f0;
+  color: var(--text-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.backButton:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+@media (min-width: 1024px) {
+  .checkoutContainer {
+    display: flex;
+    gap: 40px;
+  }
+
+  .formWrapper {
+    flex: 2;
+  }
+
+  .orderSummary {
+    flex: 1;
+    margin-top: 0;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkoutContainer {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 2em;
+  }
+
+  .formGroup label {
+    font-size: 0.9em;
+  }
+
+  .formGroup input,
+  .formGroup select,
+  .submitButton,
+  .backButton {
+    font-size: 0.9em;
+  }
+
+  .orderSummary h3 {
+    font-size: 1.5em;
+  }
+
+  .orderItem, .totalAmount {
+    font-size: 0.9em;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.submitButton:hover:not(:disabled) {
+  animation: pulse 1s infinite;
+}
