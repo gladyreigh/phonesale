@@ -1,0 +1,24 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow crawling of certain directories
+Disallow: /private/
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+
+# Allow crawling of specific important pages
+Allow: /about
+Allow: /products
+Allow: /contact
+
+# Crawl-delay directive (optional, use cautiously)
+# Crawl-delay: 10
+
+# Sitemap location
+Sitemap: https://phonesale.org/sitemap.xml
+
+# Block specific bots (example)
+User-agent: BadBot
+Disallow: /
