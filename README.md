@@ -1,4 +1,3 @@
-```markdown
 # PhoneSale
 
 Welcome to the PhoneSale e-commerce platform! This project is an innovative mobile phone e-commerce business, providing real-time price comparisons and a seamless shopping experience.
@@ -87,5 +86,6 @@ The main changes I made are:
 2. Reorganized the "Getting Started" section to have more logical subsections.
 3. Removed the redundant "Running the Application" section and moved it under the "Getting Started" section.
 4. Fixed some minor formatting and wording issues.
+```
 
-Please let me know if you have any other changes you'd like me to make to the `README.md` file.
+
