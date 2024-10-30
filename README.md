@@ -1,4 +1,3 @@
-```markdown
 # PhoneSale
 
 Welcome to the PhoneSale e-commerce platform! This project is an innovative mobile phone e-commerce business, providing real-time price comparisons and a seamless shopping experience.
@@ -90,4 +89,3 @@ The main changes I made are:
 ```
 
 Please let me know if you have any other changes you'd like me to make to the `README.md` file.
-```
