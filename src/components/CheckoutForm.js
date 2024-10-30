@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loadPayPalScript } from '../utils/paypal';
 import styles from './CheckoutForm.module.css';
@@ -11,106 +11,29 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [paypalLoaded, setPaypalLoaded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
   const PAYPAL_CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID;
 
-  useEffect(() => {
-    if (paymentMethod === 'paypal' && !paypalLoaded) {
-      loadPayPalScript(PAYPAL_CLIENT_ID).then(() => setPaypalLoaded(true));
-    }
-  }, [paymentMethod, paypalLoaded]);
-
-  useEffect(() => {
-    if (paypalLoaded && paymentMethod === 'paypal') {
-      window.paypal.Buttons({
-        createOrder: (data, actions) => {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: convert_aed_usd()
-              }
-            }]
-          });
-        },
-        onApprove: async (data, actions) => {
-          setIsSubmitting(true);
-          return actions.order.capture().then(async (details) => {
-            await completeCheckout(details, true);
-          }).finally(() => setIsSubmitting(false));
-        },
-        onError: (err) => {
-          console.error('PayPal Checkout error:', err);
-          alert('There was an error processing the payment. Please try again.');
-        }
-      }).render('#paypal-button-container');
-    }
-  }, [paypalLoaded, paymentMethod]);
-
-  useEffect(() => {
-    // Check if all required fields are filled
-    const isValid = name && email && address && mobile;
-    setIsFormValid(isValid);
-  }, [name, email, address, mobile]);
-
-  const handleCheckout = async (event) => {
-    event.preventDefault();
-    if (cart.length === 0) {
-      alert('Your cart is empty. Please add items to the cart before checking out.');
-      return;
-    }
-
-    if (!isFormValid) {
-      alert('Please fill out all fields before proceeding.');
-      return;
-    }
-
-    if (paymentMethod !== 'paypal') {
-      setIsSubmitting(true);
-      await completeCheckout({ id: 'Cash Payment', payer: { name: { given_name: 'Cash Payment' } } }, false);
-      setIsSubmitting(false);
-    }
+  const isFormValid = () => {
+    return name.trim() !== '' && 
+           email.trim() !== '' && 
+           address.trim() !== '' && 
+           mobile.trim() !== '';
   };
 
-  const handlePaymentMethodChange = (event) => {
-    setPaymentMethod(event.target.value);
+  const getMissingFields = () => {
+    const fields = [];
+    if (!name.trim()) fields.push('Name');
+    if (!email.trim()) fields.push('Email');
+    if (!address.trim()) fields.push('Address');
+    if (!mobile.trim()) fields.push('Mobile');
+    return fields;
   };
 
-  const completeCheckout = async (details, isPaypal) => {
-    if (isPaypal || window.confirm('Proceed with "cash" payment?')) {
-      const orderNumber = generateOrderNumber();
-      const items = cart.map(item => `${item.name} - ${item.price.toFixed(2)} x ${item.quantity}`).join(', ');
-      const message = `
-        <html>
-        <head><title>Order Confirmation: ${orderNumber}</title></head>
-        <body>
-          <h1>Order Confirmation</h1>
-          <p>Thank you for your order, ${name}.</p>
-          <p><strong>Order Number:</strong> ${orderNumber}</p>
-          <p><strong>Address:</strong> ${address}</p>
-          <p><strong>Mobile:</strong> ${mobile}</p>
-          <p><strong>Items:</strong> ${items}</p>
-          <p><strong>Transaction Method:</strong> ${details.id}</p>
-        </body>
-        </html>
-      `;
-
-      try {
-        const response = await sendEmail(email, message, orderNumber);
-        if (response.ok) {
-          alert(`Order placed. Email sent. Your order number is ${orderNumber}.`);
-          onOrderComplete(); // Clear cart and navigate back
-          navigate('/');
-        } else {
-          alert('There was an error placing the order.');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error placing the order. Please try again later.');
-      }
-    }
-  };
+  const convert_aed_usd = useCallback(() => {
+    return (cart.reduce((total, product) => total + parseFloat(product.price) * product.quantity, 0) / 3.63).toFixed(2);
+  }, [cart]);
 
   const generateOrderNumber = (length = 6) => {
     const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -144,8 +67,153 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
     return fetch(smtpEndpoint, init);
   };
 
-  const convert_aed_usd = () => {
-    return (cart.reduce((total, product) => total + parseFloat(product.price) * product.quantity, 0) / 3.63).toFixed(2);
+  const completeCheckout = async (details, isPaypal) => {
+    if (isPaypal || window.confirm('Proceed with "cash" payment?')) {
+      const orderNumber = generateOrderNumber();
+      const items = cart.map(item => `${item.name} - ${item.price.toFixed(2)} x ${item.quantity}`).join(', ');
+      const message = `
+        <html>
+        <head><title>Order Confirmation: ${orderNumber}</title></head>
+        <body>
+          <h1>Order Confirmation</h1>
+          <p>Thank you for your order, ${name}.</p>
+          <p><strong>Order Number:</strong> ${orderNumber}</p>
+          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Mobile:</strong> ${mobile}</p>
+          <p><strong>Items:</strong> ${items}</p>
+          <p><strong>Transaction Method:</strong> ${details.id}</p>
+        </body>
+        </html>
+      `;
+
+      try {
+        const response = await sendEmail(email, message, orderNumber);
+        if (response.ok) {
+          alert(`Order placed successfully. Email sent. Your order number is ${orderNumber}.`);
+          onOrderComplete();
+          navigate('/');
+        } else {
+          throw new Error('Failed to send email');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('There was an error placing the order. Please try again later.');
+        throw error; // Re-throw to be caught by the calling function
+      }
+    }
+  };
+
+  // Load PayPal script only once when needed
+  useEffect(() => {
+    let mounted = true;
+
+    if (paymentMethod === 'paypal' && !paypalLoaded && isFormValid()) {
+      loadPayPalScript(PAYPAL_CLIENT_ID).then(() => {
+        if (mounted) {
+          setPaypalLoaded(true);
+        }
+      });
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, [paymentMethod, paypalLoaded, PAYPAL_CLIENT_ID, isFormValid]);
+
+  // Handle PayPal button rendering
+  useEffect(() => {
+    let paypalButtonsInstance = null;
+
+    const renderPayPalButtons = async () => {
+      const paypalContainer = document.getElementById('paypal-button-container');
+      
+      if (!paypalContainer || !window.paypal) {
+        return;
+      }
+
+      // Clear existing buttons
+      paypalContainer.innerHTML = '';
+
+      if (paypalLoaded && paymentMethod === 'paypal' && isFormValid()) {
+        try {
+          paypalButtonsInstance = window.paypal.Buttons({
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                purchase_units: [{
+                  amount: {
+                    value: convert_aed_usd()
+                  }
+                }]
+              });
+            },
+            onApprove: async (data, actions) => {
+              setIsSubmitting(true);
+              try {
+                const details = await actions.order.capture();
+                await completeCheckout(details, true);
+              } catch (error) {
+                console.error('PayPal capture error:', error);
+                alert('There was an error processing your payment. Please try again.');
+              } finally {
+                setIsSubmitting(false);
+              }
+            },
+            onError: (err) => {
+              console.error('PayPal Checkout error:', err);
+              alert('There was an error processing the payment. Please try again.');
+            }
+          });
+
+          await paypalButtonsInstance.render(paypalContainer);
+        } catch (error) {
+          console.error('Error rendering PayPal buttons:', error);
+        }
+      }
+    };
+
+    renderPayPalButtons();
+
+    // Cleanup function
+    return () => {
+      if (paypalButtonsInstance && typeof paypalButtonsInstance.close === 'function') {
+        paypalButtonsInstance.close();
+      }
+    };
+  }, [paypalLoaded, paymentMethod, isFormValid, convert_aed_usd, completeCheckout]);
+
+  const handlePayPalButtonClick = () => {
+    if (!isFormValid()) {
+      const missingFields = getMissingFields();
+      alert(`Please fill out the following required fields before paying:\n${missingFields.join('\n')}`);
+    }
+  };
+
+  const handleCheckout = async (event) => {
+    event.preventDefault();
+    
+    if (cart.length === 0) {
+      alert('Your cart is empty. Please add items to the cart before checking out.');
+      return;
+    }
+
+    if (!isFormValid()) {
+      const missingFields = getMissingFields();
+      alert(`Please fill out the following required fields:\n${missingFields.join('\n')}`);
+      return;
+    }
+
+    if (paymentMethod !== 'paypal') {
+      setIsSubmitting(true);
+      try {
+        await completeCheckout({ id: 'Cash Payment', payer: { name: { given_name: 'Cash Payment' } } }, false);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
   };
 
   return (
@@ -205,13 +273,23 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
               <option value="paypal">PayPal / Card</option>
             </select>
           </div>
+          
           {paymentMethod === 'paypal' && (
-            <div id="paypal-button-container" className={styles.paypalContainer}>
-              <button type="button" disabled={!isFormValid} className={styles.paypalButton}>
-                PayPal
-              </button>
+            <div className={styles.paypalWrapper}>
+              {!isFormValid() ? (
+                <button 
+                  type="button" 
+                  className={styles.paypalPlaceholder}
+                  onClick={handlePayPalButtonClick}
+                >
+                  PayPal / Card Payment
+                </button>
+              ) : (
+                <div id="paypal-button-container" className={styles.paypalContainer}></div>
+              )}
             </div>
           )}
+          
           {paymentMethod === 'cash' && (
             <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
               {isSubmitting ? 'Processing...' : 'Place Order'}
