@@ -11,6 +11,7 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [paypalLoaded, setPaypalLoaded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
   const PAYPAL_CLIENT_ID = process.env.REACT_APP_PAYPAL_CLIENT_ID;
@@ -47,6 +48,12 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
     }
   }, [paypalLoaded, paymentMethod]);
 
+  useEffect(() => {
+    // Check if all required fields are filled
+    const isValid = name && email && address && mobile;
+    setIsFormValid(isValid);
+  }, [name, email, address, mobile]);
+
   const handleCheckout = async (event) => {
     event.preventDefault();
     if (cart.length === 0) {
@@ -54,8 +61,7 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
       return;
     }
 
-    // Check if all required fields are filled
-    if (!name || !email || !address || !mobile) {
+    if (!isFormValid) {
       alert('Please fill out all fields before proceeding.');
       return;
     }
@@ -200,7 +206,11 @@ const CheckoutForm = ({ cart, onOrderComplete }) => {
             </select>
           </div>
           {paymentMethod === 'paypal' && (
-            <div id="paypal-button-container" className={styles.paypalContainer}></div>
+            <div id="paypal-button-container" className={styles.paypalContainer}>
+              <button type="button" disabled={!isFormValid} className={styles.paypalButton}>
+                PayPal
+              </button>
+            </div>
           )}
           {paymentMethod === 'cash' && (
             <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
