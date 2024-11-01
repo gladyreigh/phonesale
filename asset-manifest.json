@@ -1,14 +1,13 @@
 {
   "files": {
-    "main.css": "/phonesale/static/css/main.f6f7f236.css",
-    "main.js": "/phonesale/static/js/main.addf8d39.js",
-    "static/media/phonesalelogo.png": "/phonesale/static/media/phonesalelogo.dc7a41317293ff6b96b8.png",
+    "main.css": "/phonesale/static/css/main.54c03ecb.css",
+    "main.js": "/phonesale/static/js/main.8330e272.js",
     "index.html": "/phonesale/index.html",
-    "main.f6f7f236.css.map": "/phonesale/static/css/main.f6f7f236.css.map",
-    "main.addf8d39.js.map": "/phonesale/static/js/main.addf8d39.js.map"
+    "main.54c03ecb.css.map": "/phonesale/static/css/main.54c03ecb.css.map",
+    "main.8330e272.js.map": "/phonesale/static/js/main.8330e272.js.map"
   },
   "entrypoints": [
-    "static/css/main.f6f7f236.css",
-    "static/js/main.addf8d39.js"
+    "static/css/main.54c03ecb.css",
+    "static/js/main.8330e272.js"
   ]
 }
