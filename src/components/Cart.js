@@ -82,7 +82,7 @@ function Cart({ cart, removeFromCart, updateQuantity }) {
         <div className={styles.emptyCart}>
           <p>Your cart is empty</p>
           <button className={styles.continueShoppingButton} onClick={handleContinueShopping}>
-            Start Shopping
+            Back To Shopping
           </button>
         </div>
       )}

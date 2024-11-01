@@ -80,7 +80,7 @@ function Products({ addToCart }) {
 
   return (
     <section className={styles.productsSection}>
-      <h2 className={styles.title}>Our Products</h2>
+      <h2 className={styles.title}>Smartphone Products</h2>
       <div className={styles.controls}>
         <input
           type="text"

@@ -1,5 +1,5 @@
 // src/App.js
-
+import './index.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import Header from './components/Header';
@@ -12,7 +12,6 @@ import Notification from './components/Notification';
 import RepairForm from './components/Repair/RepairForm';
 import AboutUs from './components/AboutUs/AboutUs'; 
 import ContactUs from './components/Contact/ContactUs'; 
-
 function App() {
   const [cart, setCart] = useState([]);
   const [notification, setNotification] = useState('');
