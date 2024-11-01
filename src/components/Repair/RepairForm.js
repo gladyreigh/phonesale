@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from './RepairForm.module.css';
 
 const RepairForm = () => {
   const [formData, setFormData] = useState({
@@ -84,95 +83,127 @@ const RepairForm = () => {
   };
 
   return (
-    <main className={styles.main}>
-      <div className={styles.notice}>
-        <i className={`${styles.icon} fas fa-tools`}></i>
-        At PhoneSale Repair, we ensure high-quality repairs at reasonable and affordable prices. Simply fill out the form below, and we will reach out to you shortly regarding your device.
+    <main className="font-sans text-gray-800 px-4 py-8 max-w-2xl mx-auto">
+      <div className="bg-green-100 text-green-700 p-4 rounded-lg flex items-center mb-6">
+        <i className="fas fa-tools text-2xl mr-4"></i>
+        <p>At PhoneSale Repair, we ensure high-quality repairs at reasonable and affordable prices. Simply fill out the form below, and we will reach out to you shortly regarding your device.</p>
       </div>
-      <div className={styles.contactForm}>
-        <h2>Repair Request Form</h2>
+      <div className="bg-white p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-green-500 mb-6 text-center">Repair Request Form</h2>
         {submitStatus && (
-          <div className={`${styles.statusMessage} ${styles[submitStatus.type]}`}>
+          <div
+            className={`p-4 rounded-lg mb-6 ${
+              submitStatus.type === 'success'
+                ? 'bg-green-100 text-green-700'
+                : 'bg-red-100 text-red-700'
+            }`}
+          >
             {submitStatus.message}
           </div>
         )}
         <form onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="name">Name:</label>
-            <input 
-              type="text" 
-              id="name" 
+          <div className="mb-6">
+            <label htmlFor="name" className="block font-semibold mb-2">
+              Name:
+            </label>
+            <input
+              type="text"
+              id="name"
               name="name"
-              value={formData.name} 
-              onChange={handleChange} 
-              required 
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="email">Email:</label>
-            <input 
-              type="email" 
-              id="email" 
+          <div className="mb-6">
+            <label htmlFor="email" className="block font-semibold mb-2">
+              Email:
+            </label>
+            <input
+              type="email"
+              id="email"
               name="email"
-              value={formData.email} 
-              onChange={handleChange} 
-              required 
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="phoneModel">Phone Model:</label>
-            <input 
-              type="text" 
-              id="phoneModel" 
+          <div className="mb-6">
+            <label htmlFor="phoneModel" className="block font-semibold mb-2">
+              Phone Model:
+            </label>
+            <input
+              type="text"
+              id="phoneModel"
               name="phoneModel"
-              value={formData.phoneModel} 
-              onChange={handleChange} 
-              required 
+              value={formData.phoneModel}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="mobileNumber">Mobile Number:</label>
-            <input 
-              type="tel" 
-              id="mobileNumber" 
+          <div className="mb-6">
+            <label htmlFor="mobileNumber" className="block font-semibold mb-2">
+              Mobile Number:
+            </label>
+            <input
+              type="tel"
+              id="mobileNumber"
               name="mobileNumber"
-              value={formData.mobileNumber} 
-              onChange={handleChange} 
-              required 
+              value={formData.mobileNumber}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="address">Address:</label>
-            <input 
-              type="text" 
-              id="address" 
+          <div className="mb-6">
+            <label htmlFor="address" className="block font-semibold mb-2">
+              Address:
+            </label>
+            <input
+              type="text"
+              id="address"
               name="address"
-              value={formData.address} 
-              onChange={handleChange} 
-              required 
+              value={formData.address}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="message">What do you think is the issue of your device? (e.g., Battery, LCD Screen):</label>
-            <textarea 
-              id="message" 
+          <div className="mb-6">
+            <label htmlFor="message" className="block font-semibold mb-2">
+              What do you think is the issue of your device? (e.g., Battery, LCD Screen):
+            </label>
+            <textarea
+              id="message"
               name="message"
-              value={formData.message} 
-              onChange={handleChange} 
-              required 
-            />
+              value={formData.message}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none h-24"
+            ></textarea>
           </div>
 
-          <div className={styles.buttonContainer}>
-            <button type="submit" disabled={isSubmitting}>
+          <div className="flex flex-col md:flex-row gap-4">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            >
               {isSubmitting ? 'Sending...' : 'Send Request'}
             </button>
-            <button type="button" className={styles.backButton} onClick={() => window.location.href = '/'}>
+            <button
+              type="button"
+              onClick={() => window.location.href = '/'}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition-colors"
+            >
               Back to Shop
             </button>
           </div>

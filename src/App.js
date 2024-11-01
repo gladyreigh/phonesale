@@ -7,11 +7,12 @@ import Products from './components/Products';
 import Cart from './components/Cart';
 import CheckoutForm from './components/CheckoutForm';
 import Footer from './components/Footer';
-import WhatsAppContact from './components/WhatsAppContact';
 import Notification from './components/Notification';
 import RepairForm from './components/Repair/RepairForm';
 import AboutUs from './components/AboutUs/AboutUs'; 
 import ContactUs from './components/Contact/ContactUs'; 
+import Policy from './components/Policy/Policy'; 
+import WhatsAppContact from './components/WhatsAppContact';
 function App() {
   const [cart, setCart] = useState([]);
   const [notification, setNotification] = useState('');
@@ -83,6 +84,7 @@ function App() {
             <Route path="/repair" element={<RepairForm />} />
             <Route path="/about" element={<AboutUs />} /> 
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/policy" element={<Policy />} />
             <Route path="*" element={<Navigate to="/" />} /> {/* Redirect to home on 404 */}
           </Routes>
           <WhatsAppContact />

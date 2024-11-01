@@ -15,12 +15,12 @@ function Products({ addToCart }) {
     try {
       const cache = await caches.open('products-cache');
       const cachedResponse = await cache.match('https://rees.greygladyreigh.workers.dev/products');
-      
+
       if (cachedResponse) {
         const result = await cachedResponse.json();
         setProducts(mapProducts(result.data));
         setIsLoading(false);
-        
+
         // Fetch fresh data in the background
         fetchFreshData(cache);
       } else {
@@ -89,9 +89,9 @@ function Products({ addToCart }) {
           value={searchQuery}
           onChange={handleSearch}
         />
-        <select 
-          className={styles.sortOptions} 
-          value={sortOption} 
+        <select
+          className={styles.sortOptions}
+          value={sortOption}
           onChange={handleSort}
         >
           <option value="default">Sort by</option>
@@ -103,8 +103,8 @@ function Products({ addToCart }) {
         {filteredAndSortedProducts.map(product => (
           <div className={styles.productCard} key={product.id}>
             <img src={product.image} alt={product.name} className={styles.productImage} loading="lazy" />
-            <h3 
-              className={styles.productName} 
+            <h3
+              className={styles.productName}
               data-fullname={product.name}
               title={product.name}
             >
@@ -114,8 +114,8 @@ function Products({ addToCart }) {
               <MarketPrice product={product} />
               <p className={styles.price}>{product.price.toFixed(2)} AED</p>
             </div>
-            <button 
-              className={styles.addToCartButton} 
+            <button
+              className={styles.addToCartButton}
               onClick={() => addToCart(product)}
             >
               Add to Cart

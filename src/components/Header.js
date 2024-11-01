@@ -165,7 +165,7 @@ const Header = ({ cart }) => {
             </div>
 
             {/* Bottom Section: Navigation with Icons */}
-            <nav className="hidden md:flex justify-center mt-4 pb-2">
+            <nav className="hidden md:flex justify-center mt-8 pb-2">
               <div className="flex items-center space-x-8">
                 {/* Desktop UAE Flag */}
                 <UAEFlag />
@@ -186,9 +186,12 @@ const Header = ({ cart }) => {
                 <Link to="/contact" className="text-white hover:text-gray-300 transition-colors font-medium text-lg">
                   Contact
                 </Link>
-                <a href="https://greyshop.pages.dev/" className="text-white hover:text-gray-300 transition-colors font-medium text-lg">
+                <Link to="/policy" className="text-white hover:text-gray-300 transition-colors font-medium text-lg">
                   Policy
-                </a>
+                </Link>
+                {/* <a href="https://greyshop.pages.dev/" className="text-white hover:text-gray-300 transition-colors font-medium text-lg">
+                  Policy
+                </a> */}
 
                 {/* Desktop Icons */}
                 <button className="hover:text-gray-300 transition-colors">
@@ -213,7 +216,8 @@ const Header = ({ cart }) => {
                 <li><Link to="/about" className="block py-2 hover:text-gray-300 transition-colors">About</Link></li>
                 <li><Link to="/repair" className="block py-2 hover:text-gray-300 transition-colors">Repair</Link></li>
                 <li><Link to="/contact" className="block py-2 hover:text-gray-300 transition-colors">Contact</Link></li>
-                <li><a href="https://greyshop.pages.dev/" className="block py-2 hover:text-gray-300 transition-colors">Policy</a></li>
+                <li><Link to="/policy" className="block py-2 hover:text-gray-300 transition-colors">Policy</Link></li>
+                {/* <li><a href="https://greyshop.pages.dev/" className="block py-2 hover:text-gray-300 transition-colors">Policy</a></li> */}
               </ul>
             </nav>
           </div>
