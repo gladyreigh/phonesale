@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/phonesale/static/css/main.dbacf802.css",
-    "main.js": "/phonesale/static/js/main.6065ba23.js",
-    "index.html": "/phonesale/index.html",
-    "main.dbacf802.css.map": "/phonesale/static/css/main.dbacf802.css.map",
-    "main.6065ba23.js.map": "/phonesale/static/js/main.6065ba23.js.map"
+    "main.css": "./static/css/main.dbacf802.css",
+    "main.js": "./static/js/main.6065ba23.js",
+    "index.html": "./index.html",
+    "main.dbacf802.css.map": "./static/css/main.dbacf802.css.map",
+    "main.6065ba23.js.map": "./static/js/main.6065ba23.js.map"
   },
   "entrypoints": [
     "static/css/main.dbacf802.css",
