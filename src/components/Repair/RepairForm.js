@@ -7,16 +7,16 @@ const RepairForm = () => {
     phoneModel: '',
     mobileNumber: '',
     address: '',
-    message: ''
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -24,35 +24,69 @@ const RepairForm = () => {
     event.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-    
+
     const emailMessage = `
-      <h2>Repair Request</h2>
-      <p>Dear ${formData.name},</p>
-      <p>Thank you for reaching out. We have received your request. We will contact you shortly about your repair request.</p>
-      <p><strong>Phone Model:</strong> ${formData.phoneModel}</p>
-      <p><strong>Mobile Number:</strong> ${formData.mobileNumber}</p>
-      <p><strong>Address:</strong> ${formData.address}</p>
-      <p><strong>Message:</strong> ${formData.message}</p>
+      <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <tr>
+          <td colspan="2" style="background-color: #4CAF50; color: white; padding: 10px; text-align: center;">
+            <h2>Repair Request</h2>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Name:</strong></td>
+          <td style="padding: 10px;">${formData.name}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Phone Model:</strong></td>
+          <td style="padding: 10px;">${formData.phoneModel}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Mobile Number:</strong></td>
+          <td style="padding: 10px;">${formData.mobileNumber}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Address:</strong></td>
+          <td style="padding: 10px;">${formData.address}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Message:</strong></td>
+          <td style="padding: 10px;">${formData.message}</td>
+        </tr>
+      </table>
     `;
 
     try {
-      const response = await sendEmail(formData.email, emailMessage, formData.phoneModel);
+      const response = await sendEmail(
+        formData.email,
+        emailMessage,
+        formData.phoneModel
+      );
       if (response.ok) {
-        setSubmitStatus({ type: 'success', message: 'Thank you for reaching out. We have received your request. We will contact you shortly about your repair request.' });
+        setSubmitStatus({
+          type: 'success',
+          message:
+            'Thank you for reaching out. We have received your request. We will contact you shortly about your repair request.',
+        });
         setFormData({
           name: '',
           email: '',
           phoneModel: '',
           mobileNumber: '',
           address: '',
-          message: ''
+          message: '',
         });
       } else {
-        setSubmitStatus({ type: 'error', message: 'Failed to send request. Please try again.' });
+        setSubmitStatus({
+          type: 'error',
+          message: 'Failed to send request. Please try again.',
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      setSubmitStatus({ type: 'error', message: 'An error occurred. Please try again later.' });
+      setSubmitStatus({
+        type: 'error',
+        message: 'An error occurred. Please try again later.',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -60,7 +94,7 @@ const RepairForm = () => {
 
   const sendEmail = async (to, message, phoneModel) => {
     const smtpEndpoint = 'https://api.smtp2go.com/v3/email/send';
-    const apiKey = 'api-AF4BE98C43FF422EAC600E6C9CF3C5C8';
+    const apiKey = process.env.REACT_APP_SMTP_API_KEY;
     const fromName = 'PhoneSale';
     const fromEmail = 'support@phonesale.org';
 
@@ -68,7 +102,7 @@ const RepairForm = () => {
       api_key: apiKey,
       to: [to, 'grey@phonesale.org'],
       sender: `${fromName} <${fromEmail}>`,
-      subject: 'Contact Request: ' + phoneModel,
+      subject: `Contact Request: ${phoneModel}`,
       html_body: message,
     });
 
@@ -86,10 +120,16 @@ const RepairForm = () => {
     <main className="font-sans text-gray-800 px-4 py-8 max-w-2xl mx-auto">
       <div className="bg-green-100 text-green-700 p-4 rounded-lg flex items-center mb-6">
         <i className="fas fa-tools text-2xl mr-4"></i>
-        <p>At PhoneSale Repair, we ensure high-quality repairs at reasonable and affordable prices. Simply fill out the form below, and we will reach out to you shortly regarding your device.</p>
+        <p>
+          At PhoneSale Repair, we ensure high-quality repairs at reasonable and
+          affordable prices. Simply fill out the form below, and we will reach
+          out to you shortly regarding your device.
+        </p>
       </div>
       <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-green-500 mb-6 text-center">Repair Request Form</h2>
+        <h2 className="text-2xl font-bold text-green-500 mb-6 text-center">
+          Repair Request Form
+        </h2>
         {submitStatus && (
           <div
             className={`p-4 rounded-lg mb-6 ${
@@ -179,7 +219,8 @@ const RepairForm = () => {
 
           <div className="mb-6">
             <label htmlFor="message" className="block font-semibold mb-2">
-              What do you think is the issue of your device? (e.g., Battery, LCD Screen):
+              What do you think is the issue of your device? (e.g., Battery, LCD
+              Screen):
             </label>
             <textarea
               id="message"
@@ -201,7 +242,7 @@ const RepairForm = () => {
             </button>
             <button
               type="button"
-              onClick={() => window.location.href = '/'}
+              onClick={() => (window.location.href = '/')}
               className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition-colors"
             >
               Back to Shop

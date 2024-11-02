@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 
 const AboutUs = () => {
   const teamMembers = [
-    { name: "Gladyreigh Dela Cruz", roles: ["Founder & CEO", "Lead Software Engineer", "Customer Support Team Lead", "UX Research Lead", "IT Security Specialist", "Corporate Communications Manager", "SEO Specialist"] },
+    { name: "Gladyreigh Dela Cruz", roles: ["Founder & CEO", "Lead Software Engineer"] },
+    { name: "Ashley Quiles", roles: ["UI/UX Research Lead", "Graphics Design Manager"]},
     { name: "Kenji Visorro", roles: ["Chief Creative Officer", "Digital Content Creator"] },
     { name: "Jiero Jaucian", role: "Chief Technology Officer" },
     { name: "Graceria Fontanilla", role: "Chief Operating Officer" },
