@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import founder from '../images/founder.jpg'
+import founder from '../../images/founder.jpg'
 
 const AboutUs = () => {
   const teamMembers = [
