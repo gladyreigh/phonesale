@@ -61,7 +61,9 @@ const AboutUs = () => {
           className="flex flex-col md:flex-row items-center gap-10 my-20 bg-gray-50 p-10 rounded-lg shadow-xl"
         >
           <div className="flex-1 text-center">
+          <Link to="/" className="block">
             <img src={founder} alt="Gladyreigh Dela Cruz" className="rounded-full w-64 h-64 object-cover border-4 border-[#1a2942] shadow-lg hover:scale-105 transition-transform duration-300" />
+            </Link>
           </div>
           <div className="flex-2">
             <h2 className="text-4xl mb-4 text-[#1a2942] font-bold">Meet the Founder</h2>
