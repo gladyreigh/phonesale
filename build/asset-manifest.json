@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "./static/css/main.dbacf802.css",
-    "main.js": "./static/js/main.89157fde.js",
+    "main.css": "./static/css/main.a248963b.css",
+    "main.js": "./static/js/main.bfef6b89.js",
+    "static/media/phonesale.png": "./static/media/phonesale.9941da299749749afaa6.png",
     "static/media/founder.jpg": "./static/media/founder.1fe2f67f30e166d3371a.jpg",
     "index.html": "./index.html",
-    "main.dbacf802.css.map": "./static/css/main.dbacf802.css.map",
-    "main.89157fde.js.map": "./static/js/main.89157fde.js.map"
+    "main.a248963b.css.map": "./static/css/main.a248963b.css.map",
+    "main.bfef6b89.js.map": "./static/js/main.bfef6b89.js.map"
   },
   "entrypoints": [
-    "static/css/main.dbacf802.css",
-    "static/js/main.89157fde.js"
+    "static/css/main.a248963b.css",
+    "static/js/main.bfef6b89.js"
   ]
 }
